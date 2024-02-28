@@ -18,8 +18,11 @@ CREATE TABLE `tb_Movimientos_Inventarios` (
   `id_Inventario` int(11) NOT NULL,
   `Tipo_movimiento` enum('Entrada','Salida') NOT NULL,
   `Cantidad` int(11) NOT NULL,
-  `Fecha_movimiento` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Fecha_movimiento` date NOT NULL,
+  CONSTRAINT ch_Cantidad CHECK (Cantidad >= 0),
+  CONSTRAINT ch_Fecha_movimiento CHECK (Fecha_movimiento >= 'YYYY-MM-DD')
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=UTF8MB4_GENERAL_CI;
+
 
 -- --------------------------------------------------------
 
@@ -42,7 +45,9 @@ CREATE TABLE `tb_Inventarios` (
   `id_Inventario` varchar(36) default UUID(),
   `id_Producto` int(11) NOT NULL,
   `Cantidad_disponible` int(11) NOT NULL,
-  `Fecha_ingreso` date NOT NULL
+  `Fecha_ingreso` date NOT NULL,
+  CONSTRAINT ch_Cantidad_disponible CHECK (Cantidad_disponible >= 0),
+  CONSTRAINT ch_Fecha_ingreso CHECK (Fecha_ingreso >='YYYY-MM-DD')
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -57,7 +62,8 @@ CREATE TABLE `tb_Productos` (
   `Descripcion_producto` varchar(250) NOT NULL,
   `Precio_unitario` decimal(10,2) NOT NULL,
   `id_Categoria` int(11) NOT NULL,
-  `id_Proveedor` int(11) NOT NULL
+  `id_Proveedor` int(11) NOT NULL,
+  CONSTRAINT ch_Precio_unitario CHECK (Precio_unitario >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -70,7 +76,8 @@ CREATE TABLE `tb_Proveedores` (
   `id_Proveedor` varchar(36) default UUID(),
   `Nombre_proveedor` varchar(50) NOT NULL,
   `Direccion_proveedor` varchar(50) NOT NULL,
-  `Telefono_proveedor` varchar(10) NOT NULL
+  `Telefono_proveedor` varchar(10) NOT NULL,
+  CONSTRAINT Si_Telefono_proveedor UNIQUE (Telefono_proveedor)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
