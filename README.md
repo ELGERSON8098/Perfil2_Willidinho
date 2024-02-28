@@ -1,7 +1,3 @@
-# Perfil2_Willidinho
-Base de datos
-
-
 DROP database IF exists bs_rapidmart;
 
 CREATE DATABASE bs_rapidmart;
@@ -18,7 +14,7 @@ USE bs_rapidmart;
 --
 
 CREATE TABLE `tb_Movimientos_Inventarios` (
-  `id_Movimiento_inventario` int(11) NOT NULL,
+  `id_Movimiento_inventario` varchar(36) default UUID(),
   `id_Inventario` int(11) NOT NULL,
   `Tipo_movimiento` enum('Entrada','Salida') NOT NULL,
   `Cantidad` int(11) NOT NULL,
@@ -32,7 +28,7 @@ CREATE TABLE `tb_Movimientos_Inventarios` (
 --
 
 CREATE TABLE `tb_Categorias` (
-  `id_Categoria` int(11) NOT NULL,
+  `id_Categoria` varchar(36) default UUID(),
   `Nombre_categoria` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -43,7 +39,7 @@ CREATE TABLE `tb_Categorias` (
 --
 
 CREATE TABLE `tb_Inventarios` (
-  `id_Inventario` int(11) NOT NULL,
+  `id_Inventario` varchar(36) default UUID(),
   `id_Producto` int(11) NOT NULL,
   `Cantidad_disponible` int(11) NOT NULL,
   `Fecha_ingreso` date NOT NULL
@@ -56,7 +52,7 @@ CREATE TABLE `tb_Inventarios` (
 --
 
 CREATE TABLE `tb_Productos` (
-  `id_Producto` int(11) NOT NULL,
+  `id_Producto` varchar(36) default UUID(),
   `Nombre_producto` varchar(50) NOT NULL,
   `Descripcion_producto` varchar(250) NOT NULL,
   `Precio_unitario` decimal(10,2) NOT NULL,
@@ -71,7 +67,7 @@ CREATE TABLE `tb_Productos` (
 --
 
 CREATE TABLE `tb_Proveedores` (
-  `id_Proveedor` int(11) NOT NULL,
+  `id_Proveedor` varchar(36) default UUID(),
   `Nombre_proveedor` varchar(50) NOT NULL,
   `Direccion_proveedor` varchar(50) NOT NULL,
   `Telefono_proveedor` varchar(10) NOT NULL
